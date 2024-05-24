@@ -7,7 +7,7 @@
 	<license>GNU General Public License version 3 or later; see LICENSE.txt</license>
 	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
 	<authorUrl>https://www.conseilgouz.com</authorUrl>
-	<version>4.4.0</version>
+	<version>4.4.1</version>
 	<description>PLG_CONTENT_EXTRAVOTE_XML_DESCRIPTION</description>
 	<namespace path="src">ConseilGouz\Plugin\Content\Extravote</namespace>
 	<scriptfile>scriptfile.php</scriptfile> 
@@ -228,6 +228,7 @@
 
 		</fields>
 	</config>
+    <updateservers>
 	<server type="extension" name="Extravote" priority="1">https://raw.githubusercontent.com/conseilgouz/updates_github/master/plg_content_extravote_update.xml</server>
 	</updateservers>
     

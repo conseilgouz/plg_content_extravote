@@ -3,7 +3,20 @@
 		<element>extravote</element>
 		<type>plugin</type>
 		<group>content</group>
-		<version>4.0.0</version>
+		<version>4.4.1</version>
+        <note>
+            <item>Update : 24/05/2024</item>
+        </note>
+		<fix>
+			<item>Wrong update server</item>
+			<item>Remove pack update server</item>
+		</fix>
+    </changelog>
+	<changelog>
+		<element>extravote</element>
+		<type>plugin</type>
+		<group>content</group>
+		<version>4.4.0</version>
         <note>
             <item>Update : 24/05/2024</item>
         </note>

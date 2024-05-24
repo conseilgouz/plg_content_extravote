@@ -104,7 +104,20 @@ class plgContentExtraVoteInstallerScript
         } catch (\RuntimeException $e) {
             Log::add('unable to delete extra ajax from extensions', Log::ERROR, 'jerror');
         }
-        // delete #__update_sites (keep showing update even if system cg like ajax is disabled)
+        // delete extravote package
+        $conditions = array(
+            $db->quoteName('type').'='.$db->quote('package'),
+            $db->quoteName('element').'='.$db->quote('pkg_extravote')
+        );
+        $query = $db->getQuery(true);
+        $query->delete($db->quoteName('#__extensions'))->where($conditions);
+        $db->setQuery($query);
+        try {
+            $db->execute();
+        } catch (\RuntimeException $e) {
+            Log::add('unable to delete extra ajax from extensions', Log::ERROR, 'jerror');
+        }
+        // delete #__update_sites (keep showing update even if system extravote is disabled)
         $query = $db->getQuery(true);
         $query->select('site.update_site_id')
         ->from($db->quoteName('#__extensions', 'ext'))
@@ -112,6 +125,28 @@ class plgContentExtraVoteInstallerScript
         ->where($db->quoteName('ext.type').'='.$db->quote('plugin'))
         ->where($db->quoteName('ext.folder').'='.$db->quote('ajax'))
         ->where($db->quoteName('ext.element').'='.$db->quote('extravote'));
+        $db->setQuery($query);
+        $upd_id = $db->loadResult();
+        if ($upd_id) {
+            $conditions = array(
+                $db->qn('update_site_id') . ' = ' . $upd_id
+            );
+            $query = $db->getQuery(true);
+            $query->delete($db->quoteName('#__update_sites'))->where($conditions);
+            $db->setQuery($query);
+            try {
+                $db->execute();
+            } catch (\RuntimeException $e) {
+                Log::add('unable to delete extravote ajax from updata_sites', Log::ERROR, 'jerror');
+            }
+        }
+        // delete #__update_sites (keep showing update even if system extravote is disabled)
+        $query = $db->getQuery(true);
+        $query->select('site.update_site_id')
+            ->from($db->quoteName('#__extensions', 'ext'))
+            ->join('LEFT', $db->quoteName('#__update_sites_extensions', 'site').' ON site.extension_id = ext.extension_id')
+            ->where($db->quoteName('ext.type').'='.$db->quote('package'))
+            ->where($db->quoteName('ext.element').'='.$db->quote('pkg_extravote'));
         $db->setQuery($query);
         $upd_id = $db->loadResult();
         if (!$upd_id) {
@@ -127,7 +162,7 @@ class plgContentExtraVoteInstallerScript
         try {
             $db->execute();
         } catch (\RuntimeException $e) {
-            Log::add('unable to delete extravote ajax from updata_sites', Log::ERROR, 'jerror');
+            Log::add('unable to delete extravote pack from updata_sites', Log::ERROR, 'jerror');
         }
 
     }
