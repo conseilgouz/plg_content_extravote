@@ -3,6 +3,18 @@
 		<element>extravote</element>
 		<type>plugin</type>
 		<group>content</group>
+		<version>4.4.2</version>
+        <note>
+            <item>Update : 24/05/2024</item>
+        </note>
+		<fix>
+			<item>Github : added missing index.html files</item>
+		</fix>
+    </changelog>
+	<changelog>
+		<element>extravote</element>
+		<type>plugin</type>
+		<group>content</group>
 		<version>4.4.1</version>
         <note>
             <item>Update : 24/05/2024</item>
