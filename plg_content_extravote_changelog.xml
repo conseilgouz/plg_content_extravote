@@ -1,0 +1,14 @@
+<changelogs>
+	<changelog>
+		<element>extravote</element>
+		<type>plugin</type>
+		<group>content</group>
+		<version>4.0.0</version>
+        <note>
+            <item>Update : 24/05/2024</item>
+        </note>
+		<change>
+			<item>Merge Ajax/Content plugins in one Content Plugin</item>
+		</change>
+    </changelog>
+</changelogs>
