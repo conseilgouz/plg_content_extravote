@@ -11,7 +11,7 @@
 	<description>PLG_CONTENT_EXTRAVOTE_XML_DESCRIPTION</description>
 	<namespace path="src">ConseilGouz\Plugin\Content\Extravote</namespace>
 	<scriptfile>scriptfile.php</scriptfile> 
-	<changelogurl>https://raw.githubusercontent.com/conseilgouz/plg_content_extravote_j4/master/plg_content_extravote_changelog.xml</changelogurl>
+	<changelogurl>https://raw.githubusercontent.com/conseilgouz/plg_content_extravote/master/plg_content_extravote_changelog.xml</changelogurl>
 	<install>
 		<sql>
 			<file driver="mysql" charset="utf8">sql/install.sql</file>
