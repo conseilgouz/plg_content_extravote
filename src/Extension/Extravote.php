@@ -446,7 +446,7 @@ class Extravote extends CMSPlugin implements SubscriberInterface
         if ($params->get('access') == 2 && !$user->id) {
             return $event->addResult('login');
         }
-        $user_rating = $input->getInt('user_rating');
+        $user_rating = $input->getFloat('user_rating');
         $xid         = $input->getInt('xid');
         $table       = (($params->get('table', 1) != 1 && !(int)$xid) ? '#__content_rating' : '#__content_extravote');
         $cid = 0;
@@ -461,7 +461,7 @@ class Extravote extends CMSPlugin implements SubscriberInterface
         $currip = $_SERVER['REMOTE_ADDR'];
 
         $query->select('*')
-            ->from($db->qn($table))
+            ->from($db->quoteName($table))
             ->where('content_id = '.$db->quote($cid).($table == '#__content_extravote' ? ' AND extra_id = '.$db->quote($xid) : ''));
         $db->setQuery($query);
         try {
@@ -472,15 +472,25 @@ class Extravote extends CMSPlugin implements SubscriberInterface
         $query	= $db->getQuery(true);
         if (!$votesdb) { // No vote for this article
             $columns = array('content_id', 'rating_sum', 'rating_count', 'lastip');
-            $values = array($cid, $user_rating, 1, $db->quote($currip));
+            $values = array(':content_id', ':rating_sum', ':rating_count', ':lastip');
+            // $values = array($cid, $user_rating, 1, $db->quote($currip));
             if($table == '#__content_extravote') :
                 $columns[] = 'extra_id';
-                $values[] = $xid;
+                $values[] = ':extra_id';
             endif;
+            $one = 1;
             $query
                 ->insert($db->quoteName($table))
                 ->columns($db->quoteName($columns))
                 ->values(implode(',', $values));
+            $query->bind(':content_id', $cid, \Joomla\Database\ParameterType::INTEGER)
+            ->bind(':rating_sum', $user_rating, \Joomla\Database\ParameterType::INTEGER)
+            ->bind(':rating_count', $one, \Joomla\Database\ParameterType::INTEGER)
+            ->bind(':lastip', $currip, \Joomla\Database\ParameterType::STRING);
+            if($table == '#__content_extravote') {
+                $query->bind(':extra_id', $xid, \Joomla\Database\ParameterType::INTEGER);
+            }
+
             $db->setQuery($query);
             try {
                 $result = $db->execute();
@@ -496,10 +506,13 @@ class Extravote extends CMSPlugin implements SubscriberInterface
             } elseif ($currip != ($votesdb->lastip)) {
                 $query
                     ->update($db->quoteName($table))
-                    ->set('rating_sum = rating_sum + ' . $user_rating)
+                    ->set('rating_sum = rating_sum + :user_rating')
                     ->set('rating_count = rating_count +'. 1)
-                    ->set('lastip = '. $db->quote($currip))
-                    ->where('content_id = '.$cid.($table == '#__content_extravote' ? ' AND extra_id = '.$xid : ''));
+                    ->set('lastip = :lastip')
+                    ->where('content_id = :content_id'.($table == '#__content_extravote' ? ' AND extra_id = '.$xid : ''));
+                $query->bind(':content_id', $cid, \Joomla\Database\ParameterType::INTEGER)
+                      ->bind(':user_rating', $user_rating, \Joomla\Database\ParameterType::INTEGER)
+                      ->bind(':lastip', $currip, \Joomla\Database\ParameterType::STRING);
                 $db->setQuery($query);
                 try {
                     $result = $db->execute();
@@ -522,7 +535,7 @@ class Extravote extends CMSPlugin implements SubscriberInterface
         $db  = $this->getDatabase();
         $query	= $db->getQuery(true);
         $query->select('*')
-            ->from($db->qn('#__content_extravote_user'))
+            ->from($db->quoteName('#__content_extravote_user'))
             ->where('content_id = '.$db->quote($cid).' AND user_id = '.$db->quote($user_id).' AND extra_id = '.$db->quote($xid));
         $db->setQuery($query);
         try {
@@ -576,7 +589,7 @@ class Extravote extends CMSPlugin implements SubscriberInterface
         $db  = $this->getDatabase();
         $query	= $db->getQuery(true);
         $query->select('*')
-            ->from($db->qn('#__content_extravote'))
+            ->from($db->quoteName('#__content_extravote'))
             ->where('content_id = '.$db->quote($cid).' AND extra_id = '.$db->quote($xid));
         $db->setQuery($query);
         try {
@@ -587,7 +600,7 @@ class Extravote extends CMSPlugin implements SubscriberInterface
         // store extravoteinfo in vote table
         $query	= $db->getQuery(true);
         $query->select('*')
-            ->from($db->qn('#__content_rating'))
+            ->from($db->quoteName('#__content_rating'))
             ->where('content_id = '.$db->quote($cid));
         $db->setQuery($query);
         try {
@@ -598,11 +611,15 @@ class Extravote extends CMSPlugin implements SubscriberInterface
         $query	= $db->getQuery(true);
         if (!$vote) { // No vote for this article
             $columns = array('content_id', 'rating_sum', 'rating_count', 'lastip');
-            $values = array($cid, $extravote->rating_sum, $extravote->rating_count, $db->quote($currip));
+            $values = array(':content_id', ':rating_sum', ':rating_count', ':lastip');
             $query
                 ->insert($db->quoteName('#__content_rating'))
                 ->columns($db->quoteName($columns))
                 ->values(implode(',', $values));
+            $query->bind(':content_id', $cid, \Joomla\Database\ParameterType::INTEGER)
+                ->bind(':rating_sum', $extravote->rating_sum, \Joomla\Database\ParameterType::INTEGER)
+                ->bind(':rating_count', $extravote->rating_count, \Joomla\Database\ParameterType::INTEGER)
+                ->bind(':lastip', $currip, \Joomla\Database\ParameterType::STRING);
             $db->setQuery($query);
             try {
                 $result = $db->execute();
@@ -612,10 +629,15 @@ class Extravote extends CMSPlugin implements SubscriberInterface
         } else { // vote exists in table
             $query
                 ->update($db->quoteName('#__content_rating'))
-                ->set('rating_sum = ' . $extravote->rating_sum)
-                ->set('rating_count = ' . $extravote->rating_count)
-                ->set('lastip = '. $db->quote($currip))
-                ->where('content_id = '.$cid);
+                ->set('rating_sum = :rating_sum')
+                ->set('rating_count = :rating_count')
+                ->set('lastip = :lastip')
+                ->where('content_id = :content_id ');
+            $query->bind(':content_id', $cid, \Joomla\Database\ParameterType::INTEGER)
+            ->bind(':rating_sum', $extravote->rating_sum, \Joomla\Database\ParameterType::INTEGER)
+            ->bind(':rating_count', $extravote->rating_count, \Joomla\Database\ParameterType::INTEGER)
+            ->bind(':lastip', $currip, \Joomla\Database\ParameterType::STRING);
+
             $db->setQuery($query);
             try {
                 $result = $db->execute();
@@ -632,12 +654,12 @@ class Extravote extends CMSPlugin implements SubscriberInterface
         $q2  	= $db->getQuery(true);
         // in extravote and not in rating
         $q2->select('rating.content_id,rating.rating_sum,rating.rating_count,rating.lastip,extra.content_id as extraid, extra.rating_sum as extrasum ,extra.rating_count as extracount,extra.lastip as extralastip')
-            ->from($db->qn('#__content_rating').' as rating')
-            ->join('RIGHT', $db->qn('#__content_extravote').' as extra on rating.content_id = extra.content_id');
+            ->from($db->quoteName('#__content_rating').' as rating')
+            ->join('RIGHT', $db->quoteName('#__content_extravote').' as extra on rating.content_id = extra.content_id');
         // in rating but not in extravote
         $query->select('rating.content_id,rating.rating_sum,rating.rating_count,rating.lastip,extra.content_id as extraid,extra.rating_sum as extrasum ,extra.rating_count as extracount,extra.lastip as extralastip')
-            ->from($db->qn('#__content_rating').' as rating')
-            ->join('LEFT', $db->qn('#__content_extravote').' as extra on rating.content_id = extra.content_id')
+            ->from($db->quoteName('#__content_rating').' as rating')
+            ->join('LEFT', $db->quoteName('#__content_extravote').' as extra on rating.content_id = extra.content_id')
             ->union($q2);
         $db->setQuery($query);
         try {
@@ -652,11 +674,15 @@ class Extravote extends CMSPlugin implements SubscriberInterface
             if (!$one->rating_sum) {// does not exist in extravote : create it
                 $query	= $db->getQuery(true);
                 $columns = array('content_id', 'rating_sum', 'rating_count', 'lastip');
-                $values = array($one->extraid, $one->extrasum, $one->extracount, $db->quote($one->lastid));
+                $values = array(':content_id', ':rating_sum', ':rating_count', ':lastip');
                 $query
                     ->insert($db->quoteName('#__content_rating'))
                     ->columns($db->quoteName($columns))
                     ->values(implode(',', $values));
+                $query->bind(':content_id', $one->extraid, \Joomla\Database\ParameterType::INTEGER)
+                ->bind(':rating_sum', $one->extrasum, \Joomla\Database\ParameterType::INTEGER)
+                ->bind(':rating_count', $one->extracount, \Joomla\Database\ParameterType::INTEGER)
+                ->bind(':lastip', $one->extralastip, \Joomla\Database\ParameterType::STRING);
                 $db->setQuery($query);
                 try {
                     $result = $db->execute();
@@ -668,11 +694,15 @@ class Extravote extends CMSPlugin implements SubscriberInterface
             if (!$one->extrasum) {// does not exist in extravote : create it
                 $query	= $db->getQuery(true);
                 $columns = array('content_id', 'rating_sum', 'rating_count', 'lastip','extra_id');
-                $values = array($one->content_id, $one->rating_sum, $one->rating_count, $db->quote($one->lastid),0);
+                $values = array(':content_id', ':rating_sum', ':rating_count', ':lastip',0);
                 $query
                     ->insert($db->quoteName('#__content_extravote'))
                     ->columns($db->quoteName($columns))
                     ->values(implode(',', $values));
+                $query->bind(':content_id', $one->content_id, \Joomla\Database\ParameterType::INTEGER)
+                ->bind(':rating_sum', $one->rating_sum, \Joomla\Database\ParameterType::INTEGER)
+                ->bind(':rating_count', $one->rating_count, \Joomla\Database\ParameterType::INTEGER)
+                ->bind(':lastip', $one->lastip, \Joomla\Database\ParameterType::STRING);
                 $db->setQuery($query);
                 try {
                     $result = $db->execute();
@@ -685,10 +715,14 @@ class Extravote extends CMSPlugin implements SubscriberInterface
                 $query	= $db->getQuery(true);
                 $query
                     ->update($db->quoteName('#__content_extravote'))
-                    ->set('rating_sum = ' . $one->rating_sum)
-                    ->set('rating_count = ' . $one->rating_count)
-                    ->set('lastip = '. $db->quote($one->lastip))
-                    ->where('content_id = '.$one->content_id.' AND extra_id = 0');
+                    ->set('rating_sum = :rating_sum ')
+                    ->set('rating_count = :rating_count')
+                    ->set('lastip = :lastip'. $db->quote($one->lastip))
+                    ->where('content_id = :content_id AND extra_id = 0');
+                $query->bind(':content_id', $one->content_id, \Joomla\Database\ParameterType::INTEGER)
+                ->bind(':rating_sum', $one->rating_sum, \Joomla\Database\ParameterType::INTEGER)
+                ->bind(':rating_count', $one->rating_count, \Joomla\Database\ParameterType::INTEGER)
+                ->bind(':lastip', $one->lastip, \Joomla\Database\ParameterType::STRING);
                 $db->setQuery($query);
                 try {
                     $result = $db->execute();
@@ -701,10 +735,14 @@ class Extravote extends CMSPlugin implements SubscriberInterface
                 $query	= $db->getQuery(true);
                 $query
                     ->update($db->quoteName('#__content_rating'))
-                    ->set('rating_sum = ' . $one->extrasum)
-                    ->set('rating_count = ' . $one->extracount)
-                    ->set('lastip = '. $db->quote($one->extralastip))
-                    ->where('content_id = '.$one->content_id);
+                    ->set('rating_sum = :rating_sum')
+                    ->set('rating_count = :rating_count')
+                    ->set('lastip = :lastip')
+                    ->where('content_id = :content_id');
+                $query->bind(':content_id', $one->content_id, \Joomla\Database\ParameterType::INTEGER)
+                ->bind(':rating_sum', $one->extrasum, \Joomla\Database\ParameterType::INTEGER)
+                ->bind(':rating_count', $one->extracount, \Joomla\Database\ParameterType::INTEGER)
+                ->bind(':lastip', $one->extralastip, \Joomla\Database\ParameterType::STRING);
                 $db->setQuery($query);
                 try {
                     $result = $db->execute();

@@ -10,6 +10,15 @@
 		<addition>
 			<item>Show/Hide category rating in blog view</item>
 		</addition>
+		<change>
+			<item>Joomla 6 compatibility</item>
+			<item>SQL : use prepared statements</item>
+            <item>admin js : remove JQuery</item>
+		</change>
+		<fix>
+			<item>Admin : sync checkbox not working</item>
+			<item>Half stars store full stars</item>
+		</fix>
     </changelog>
 	<changelog>
 		<element>extravote</element>

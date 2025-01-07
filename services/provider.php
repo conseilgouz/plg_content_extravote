@@ -16,7 +16,6 @@ use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 use Joomla\Event\DispatcherInterface;
-use Joomla\Http\HttpFactory;
 use Joomla\Database\DatabaseInterface;
 use ConseilGouz\Plugin\Content\Extravote\Extension\Extravote;
 
@@ -35,7 +34,7 @@ return new class () implements ServiceProviderInterface {
         $container->set(
             PluginInterface::class,
             function (Container $container) {
-				$displatcher = $container->get(DispatcherInterface::class);
+                $displatcher = $container->get(DispatcherInterface::class);
                 $plugin = new Extravote(
                     $displatcher,
                     (array) PluginHelper::getPlugin('content', 'extravote')

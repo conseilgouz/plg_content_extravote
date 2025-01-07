@@ -7,41 +7,56 @@
 * It also fire content_rating and content_extravote tables synchronization
 *
 */
-jQuery(document).ready(function(){
-	jQuery( ".clear" ).parent('fieldset').parent('.controls').parent(".control-group").css({"clear":"both"});
-	jQuery( ".left" ).parent('fieldset').parent('.controls').parent(".control-group").css({"float":"left"});
-	jQuery( ".left" ).parent('fieldset').parent('.controls').css({"min-width":"inherit"});
-	jQuery( ".right" ).parent('fieldset').parent('.controls').parent(".control-group").css({"float":"right","text-align":"center"});
+document.addEventListener('DOMContentLoaded', function() {
+    sel = document.querySelector('#general');    
+    if (!sel) { return; }    
 
-	jQuery( ".half" ).parent('fieldset').parent('.controls').parent(".control-group").css({"width":"50%"});
-	jQuery( ".third" ).parent('fieldset').parent('.controls').parent(".control-group").css({"width":"33%"});
-	jQuery( ".full" ).parent('fieldset').parent('.controls').parent(".control-group").css({"width":"100%"});
-
-	jQuery( ".clear" ).parent('.controls').parent(".control-group").css({"clear":"both"});
-	jQuery( ".left" ).parent('.controls').parent(".control-group").css({"float":"left"});
-	jQuery( ".right" ).parent('.controls').parent(".control-group").css({"float":"right","text-align":"center"});
-	jQuery( ".half" ).parent('.controls').parent(".control-group").css({"width":"50%"});
-	jQuery( ".third" ).parent('.controls').parent(".control-group").css({"width":"33%"});
-	jQuery( ".full" ).parent('.controls').parent(".control-group").css({"width":"100%"});
-
-    jQuery( ".half" ).parent('fieldset').parent('.controls').css({"min-width":"inherit"});
-	jQuery( ".half" ).parent('div').parent('.controls').css({"min-width":"inherit"});
-    jQuery( ".half" ).parent('.controls').css({"min-width":"inherit"});
-
-    jQuery(".alert-success.clear.half").css({"width":"100%"});
-	jQuery(".half").parent(".control-group").css({"width":"50%"});
-	jQuery(".clear").parent(".control-group").css({"clear":"both"});
-
-	jQuery("input.clear").css({"clear":"both"});
-    jQuery("input.full").css({"width":"100%"});
-	jQuery("select.clear").parent('.controls').parent(".control-group").css({"clear":"both"});
-	jQuery("select.none").parent('.controls').parent(".control-group").css({"float":"none"});
-
-	jQuery( ".half" ).parent('.form-check').parent('.controls').parent(".control-group").css({"width":"50%"});
-	jQuery( ".left" ).parent('.form-check').parent('.controls').parent(".control-group").css({"float":"left"});
-	jQuery( ".right" ).parent('.form-check').parent('.controls').parent(".control-group").css({"float":"right","text-align":"center"});
+    sels = sel.querySelectorAll('.control-group .control-label');
+    sels.forEach(function (element) {
+        element.style.width = '140px';
+    });   
     
-    jQuery(".form-check-input[type='checkbox']").css({"border":"2px solid #1a5997"});
+    sels = sel.querySelectorAll('.clear');
+    sels.forEach(function (element) {
+        element.parentNode.parentNode.parentNode.style.clear = 'both';
+        element.parentNode.parentNode.style.clear = 'both';
+    });
+    sels = sel.querySelectorAll('input.left');
+    sels.forEach(function (element) {
+        element.parentNode.parentNode.style.float = 'left';
+    });
+    sels = sel.querySelectorAll('div.left');
+    sels.forEach(function (element) {
+        element.parentNode.parentNode.parentNode.style.float = 'left';
+        element.parentNode.parentNode.style.float = 'left';
+    });
+    sels = sel.querySelectorAll('input.right');
+    sels.forEach(function (element) {
+        element.parentNode.parentNode.style.float = 'right';
+    });
+
+    sels = sel.querySelectorAll('div.right');
+    sels.forEach(function (element) {
+        element.parentNode.parentNode.parentNode.style.float = 'right';
+        element.parentNode.parentNode.style.float = 'right';
+    });
+    
+    sels = sel.querySelectorAll('div.half.radio');
+    sels.forEach(function (element) {
+        element.parentNode.parentNode.parentNode.style.width = '50%';
+        element.parentNode.parentNode.style.width = '50%';
+    });
+    sels = sel.querySelectorAll('input.half');
+    sels.forEach(function (element) {
+        element.parentNode.parentNode.style.width = '50%';
+        element.parentNode.style.width = '50%';
+    });
+    sels = sel.querySelectorAll('div.half:not(.radio)');
+    sels.forEach(function (element) {
+        element.parentNode.parentNode.parentNode.style.width = '50%';
+        element.parentNode.parentNode.style.width = '50%';
+        element.parentNode.style.width = '50%';
+    });    
 
     // Sync Rating and ExtraVote tables
     const sync = document.querySelector('#jform_params_sync');
@@ -51,7 +66,7 @@ jQuery(document).ready(function(){
                 }
     });    
 	function goSyncAjax() {
-        url = '?option=com_ajax&plugin=extravote&action=sync&format=raw';
+        url = '?option=com_ajax&plugin=extravote&group=content&action=sync&format=raw';
 		Joomla.request({
 			method   : 'POST',
 			url   : url,
