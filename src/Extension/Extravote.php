@@ -57,7 +57,7 @@ class Extravote extends CMSPlugin implements SubscriberInterface
 
             if ($this->params->get('display') == EXTRAVOTE_OPTION_AFTER_TITLE) {
                 $hide  = $this->params->get('hide', 1);
-                $hidecat  = $this->params->get('hidecat', 1);
+                $hidecat  = $this->params->get('hidecat', 0); // default = show
                 if (($hide == 1 && $this->view != 'article') ||
                     ($hide == 0 && $hidecat && strpos(get_class($event->getItem()), 'Category'))) {
                     return;
