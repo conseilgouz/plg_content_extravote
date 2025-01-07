@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------------
 # author    Conseilgouz
 # from joomlahill Plugin
-# Copyright (C) 2024 www.conseilgouz.com. All Rights Reserved.
+# Copyright (C) 2025 www.conseilgouz.com. All Rights Reserved.
 # @license - https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 -------------------------------------------------------------------------*/
 function JVXVote(id,i,total,total_count,xid,show_counter,show_rating,rating_mode){

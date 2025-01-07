@@ -1,5 +1,5 @@
 /*
-* $Id: plg_content_extravote.ini 2024 ConseilGouz $
+* $Id: plg_content_extravote.ini 2025 ConseilGouz $
 * from joomlahill  ExtraVote
 * License GNU General Public License version 3 or later; see LICENSE.txt, see LICENSE.php
 *

@@ -4,7 +4,7 @@
 # ------------------------------------------------------------------------
 # author    Conseilgouz
 # from joomlahill Plugin
-# Copyright (C) 2024 www.conseilgouz.com. All Rights Reserved.
+# Copyright (C) 2025 www.conseilgouz.com. All Rights Reserved.
 # @license - https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 -------------------------------------------------------------------------*/
 
@@ -57,7 +57,11 @@ class Extravote extends CMSPlugin implements SubscriberInterface
 
             if ($this->params->get('display') == EXTRAVOTE_OPTION_AFTER_TITLE) {
                 $hide  = $this->params->get('hide', 1);
-
+                $hidecat  = $this->params->get('hidecat', 1);
+                if (($hide == 1 && $this->view != 'article') ||
+                    ($hide == 0 && $hidecat && strpos(get_class($event->getItem()), 'Category'))) {
+                    return;
+                }
                 if ($hide != 1 || $this->view == 'article') {
                     $event->getItem()->xid = 0;
                     $event->addResult($this->ContentExtraVote($event->getItem(), $event->getParams()));

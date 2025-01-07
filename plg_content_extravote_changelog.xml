@@ -3,6 +3,18 @@
 		<element>extravote</element>
 		<type>plugin</type>
 		<group>content</group>
+		<version>4.4.3</version>
+        <note>
+            <item>Update : 07/01/2025</item>
+        </note>
+		<addition>
+			<item>Show/Hide category rating in blog view</item>
+		</addition>
+    </changelog>
+	<changelog>
+		<element>extravote</element>
+		<type>plugin</type>
+		<group>content</group>
 		<version>4.4.2</version>
         <note>
             <item>Update : 24/05/2024</item>

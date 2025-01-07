@@ -2,12 +2,12 @@
 <extension 	version="5.0"	type="plugin" group="content" method="upgrade">
 	<name>PLG_CONTENT_EXTRAVOTE</name>
 	<author>ConseilGouz</author>
-	<creationDate>2024-05-24</creationDate>
-	<copyright>Copyright (C) 2024 Conseilgouz. All rights reserved.</copyright>
+	<creationDate>2025-01-07</creationDate>
+	<copyright>Copyright (C) 2025 Conseilgouz. All rights reserved.</copyright>
 	<license>GNU General Public License version 3 or later; see LICENSE.txt</license>
 	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
 	<authorUrl>https://www.conseilgouz.com</authorUrl>
-	<version>4.4.2</version>
+	<version>4.4.3</version>
 	<description>PLG_CONTENT_EXTRAVOTE_XML_DESCRIPTION</description>
 	<namespace path="src">ConseilGouz\Plugin\Content\Extravote</namespace>
 	<scriptfile>scriptfile.php</scriptfile> 
@@ -70,7 +70,15 @@
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
-				
+				<field name="hidecat" type="radio"
+                    showon="hide:0"
+					class="btn-group"
+					default="0"
+					label="PLG_CONTENT_EXTRAVOTE_FIELD_HIDECAT_IN_BLOG_LABEL"
+					description="PLG_CONTENT_EXTRAVOTE_FIELD_HIDECAT_IN_BLOG_DESC">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
 				<field name="extra" type="list"
 					default="1" class="half"
 					label="PLG_CONTENT_EXTRAVOTE_FIELD_USE_CODE_LABEL"

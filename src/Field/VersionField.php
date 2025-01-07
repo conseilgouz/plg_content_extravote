@@ -4,7 +4,7 @@
 # ------------------------------------------------------------------------
 # author    Conseilgouz
 # from joomlahill Plugin
-# Copyright (C) 2024 www.conseilgouz.com. All Rights Reserved.
+# Copyright (C) 2025 www.conseilgouz.com. All Rights Reserved.
 # @license - https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 -------------------------------------------------------------------------*/
 namespace ConseilGouz\Plugin\Content\Extravote\Field;
@@ -13,6 +13,7 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\FormField;
 use Joomla\CMS\Language\Text;
+use Joomla\Database\DatabaseInterface;
 use Joomla\String\StringHelper;
 
 // Prevent direct access
@@ -37,7 +38,7 @@ class VersionField extends FormField
 		$version = '';
 
 		$jinput = Factory::getApplication()->input;
-		$db = Factory::getDBO();
+        $db = Factory::getContainer()->get(DatabaseInterface::class);
 		$query = $db->getQuery(true);
 		$query
 			->select($db->quoteName('manifest_cache'))
