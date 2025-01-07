@@ -57,7 +57,10 @@ document.addEventListener('DOMContentLoaded', function() {
         element.parentNode.parentNode.style.width = '50%';
         element.parentNode.style.width = '50%';
     });    
-
+    sels = sel.querySelectorAll('select.half');
+    sels.forEach(function (element) {
+        element.style.width = "50%"
+    })
     // Sync Rating and ExtraVote tables
     const sync = document.querySelector('#jform_params_sync');
             sync.addEventListener('click', (event) => {

@@ -63,7 +63,7 @@
 				</field>
 				
 				<field name="hide" type="radio"
-					class="btn-group"
+					class="btn-group half left"
 					default="0"
 					label="PLG_CONTENT_EXTRAVOTE_FIELD_HIDE_IN_BLOG_LABEL"
 					description="PLG_CONTENT_EXTRAVOTE_FIELD_HIDE_IN_BLOG_DESC">
@@ -72,7 +72,7 @@
 				</field>
 				<field name="hidecat" type="radio"
                     showon="hide:0"
-					class="btn-group"
+					class="btn-group half right"
 					default="0"
 					label="PLG_CONTENT_EXTRAVOTE_FIELD_HIDECAT_IN_BLOG_LABEL"
 					description="PLG_CONTENT_EXTRAVOTE_FIELD_HIDECAT_IN_BLOG_DESC">
@@ -80,7 +80,7 @@
 					<option value="0">JNO</option>
 				</field>
 				<field name="extra" type="list"
-					default="1" class="half"
+					default="1" class="clear half"
 					label="PLG_CONTENT_EXTRAVOTE_FIELD_USE_CODE_LABEL"
 					description="PLG_CONTENT_EXTRAVOTE_FIELD_USE_CODE_DESC">
 					<option value="0">PLG_CONTENT_EXTRAVOTE_OPTION_USE_CODE_NEVER</option>
