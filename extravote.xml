@@ -2,12 +2,12 @@
 <extension 	version="5.0"	type="plugin" group="content" method="upgrade">
 	<name>PLG_CONTENT_EXTRAVOTE</name>
 	<author>ConseilGouz</author>
-	<creationDate>2025-01-07</creationDate>
+	<creationDate>2025-02-21</creationDate>
 	<copyright>Copyright (C) 2025 Conseilgouz. All rights reserved.</copyright>
 	<license>GNU General Public License version 3 or later; see LICENSE.txt</license>
 	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
 	<authorUrl>https://www.conseilgouz.com</authorUrl>
-	<version>4.4.3</version>
+	<version>4.4.4</version>
 	<description>PLG_CONTENT_EXTRAVOTE_XML_DESCRIPTION</description>
 	<namespace path="src">ConseilGouz\Plugin\Content\Extravote</namespace>
 	<scriptfile>scriptfile.php</scriptfile> 
@@ -212,7 +212,7 @@
 				</field>
    				<field name="sync" class="right half"
                     showon="table:1"
-                    type="checkbox" default="0" 
+                    type="checkbox" 
                     label="PLG_CONTENT_EXTRAVOTE_FIELD_SYNC_TABLES_LABEL" 
                     description="PLG_CONTENT_EXTRAVOTE_FIELD_SYNC_TABLES_DESC"
 				/>
