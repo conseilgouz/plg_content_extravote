@@ -172,9 +172,11 @@ class Extravote extends CMSPlugin implements SubscriberInterface
             $spans .= "
       <span class=\"extravote-star\"><a href=\"javascript:void(null)\" onclick=\"javascript:JVXVote(".$id.",".$j.",".$rating_sum.",".$rating_count.",'".$xid."',".$show_counter.",".$show_rating.",".$rating_mode.");\" title=\"".TEXT::_('PLG_CONTENT_EXTRAVOTE_RATING_'.($j * 10).'_OUT_OF_5')."\" class=\"ev-".($j * 10)."-stars\">1</a></span>";
         endfor;
-
-        $html = "
-<".$container." class=\"".$class."\">
+        $html = "";
+        if ($this->params->get('description',"")) {
+            $html = "<div class=\"extravote-desc\"".">" . $this->params->get('description') . "</div>";
+        }
+        $html .= "<".$container." class=\"".$class."\">
   <div class=\"extravote-stars\"".">"."<span id=\"rating_".$id."_".$xid."\" class=\"current-rating\"".((!$initial_hide || $currip == $ip) ? " style=\"width:".round($rating * 20)."%;\"" : "")."></span>"
     .$spans."
   </div>
