@@ -225,6 +225,12 @@
 					<option value="10">JYES</option>
 					<option value="5">JNO</option>
 				</field>
+				<field name="description" class="clear" type="textarea"
+					label="PLG_CONTENT_EXTRAVOTE_FIELD_DESCRIPTION_LABEL"
+					description="PLG_CONTENT_EXTRAVOTE_FIELD_DESCRIPTION_DESC"
+					cols="400" rows="4" filter="raw" 
+					default=""
+				/>
                 
 				<field name="customcss" class="clear" type="textarea" 
                     label="PLG_CONTENT_EXTRAVOTE_FIELD_CUSTOM_CSS_LABEL" 

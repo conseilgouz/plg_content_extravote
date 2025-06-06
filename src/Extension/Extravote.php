@@ -174,7 +174,8 @@ class Extravote extends CMSPlugin implements SubscriberInterface
         endfor;
 
         $html = "
-<".$container." class=\"".$class."\">
+  <div class=\"extravote-desc\"".">" . $this->params->get('description') . "</div>
+  <".$container." class=\"".$class."\">
   <div class=\"extravote-stars\"".">"."<span id=\"rating_".$id."_".$xid."\" class=\"current-rating\"".((!$initial_hide || $currip == $ip) ? " style=\"width:".round($rating * 20)."%;\"" : "")."></span>"
     .$spans."
   </div>
