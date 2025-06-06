@@ -3,6 +3,18 @@
 		<element>extravote</element>
 		<type>plugin</type>
 		<group>content</group>
+		<version>4.4.5</version>
+        <note>
+            <item>Update : 06/06/2025</item>
+        </note>
+		<addition>
+			<item>PR 1 from Peter Reill : add description above rating.</item>
+		</addition>
+    </changelog>
+	<changelog>
+		<element>extravote</element>
+		<type>plugin</type>
+		<group>content</group>
 		<version>4.4.4</version>
         <note>
             <item>Update : 21/02/2025</item>
