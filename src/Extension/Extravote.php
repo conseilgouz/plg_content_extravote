@@ -48,7 +48,7 @@ class Extravote extends CMSPlugin implements SubscriberInterface
     public function checkExtra($event)
     {
         if (strpos($event->getContext(), 'com_content') !== false) {
-            $input               = Factory::getApplication()->input;
+            $input               = Factory::getApplication()->getInput();
             $this->view          = $input->getCmd('view');
             $this->article_id    = $event->getItem()->id;
             $this->article_title = $event->getItem()->title;
@@ -173,10 +173,10 @@ class Extravote extends CMSPlugin implements SubscriberInterface
       <span class=\"extravote-star\"><a href=\"javascript:void(null)\" onclick=\"javascript:JVXVote(".$id.",".$j.",".$rating_sum.",".$rating_count.",'".$xid."',".$show_counter.",".$show_rating.",".$rating_mode.");\" title=\"".TEXT::_('PLG_CONTENT_EXTRAVOTE_RATING_'.($j * 10).'_OUT_OF_5')."\" class=\"ev-".($j * 10)."-stars\">1</a></span>";
         endfor;
         $html = "<".$container." class=\"".$class."\">";
-        if ($this->params->get('description',"")) {
+        if ($this->params->get('description', "")) {
             $html .= "<div class=\"extravote-desc\"".">" . $this->params->get('description') . "</div>";
         }
-        $html .= 
+        $html .=
   "<div class=\"extravote-stars\"".">"."<span id=\"rating_".$id."_".$xid."\" class=\"current-rating\"".((!$initial_hide || $currip == $ip) ? " style=\"width:".round($rating * 20)."%;\"" : "")."></span>"
     .$spans."
   </div>
@@ -433,7 +433,7 @@ class Extravote extends CMSPlugin implements SubscriberInterface
     }
     public function goAjax($event)
     {
-        $input	= Factory::getApplication()->input;
+        $input	= Factory::getApplication()->getInput();
         $user = Factory::getApplication()->getIdentity();
         $action = $input->getString('action');
         if ($action == 'sync') {
