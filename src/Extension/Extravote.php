@@ -110,6 +110,7 @@ class Extravote extends CMSPlugin implements SubscriberInterface
         $rating_mode  = $this->params->get('rating_mode', 1);
         $show_unrated = $this->params->get('show_unrated', 1);
         $initial_hide = $this->params->get('initial_hide', 0);
+        $decimal      = $this->params->get('rating_decimal',2);
         $currip = $_SERVER['REMOTE_ADDR'];
         $add_snippets = 0;
         if (PluginHelper::isEnabled('system', 'schemaorg')) {
@@ -170,7 +171,7 @@ class Extravote extends CMSPlugin implements SubscriberInterface
         $spans = '';
         for ($i = 0,$j = 5 / $stars; $i < $stars; $i++,$j += 5 / $stars) :
             $spans .= "
-      <span class=\"extravote-star\"><a href=\"javascript:void(null)\" onclick=\"javascript:JVXVote(".$id.",".$j.",".$rating_sum.",".$rating_count.",'".$xid."',".$show_counter.",".$show_rating.",".$rating_mode.");\" title=\"".TEXT::_('PLG_CONTENT_EXTRAVOTE_RATING_'.($j * 10).'_OUT_OF_5')."\" class=\"ev-".($j * 10)."-stars\">1</a></span>";
+      <span class=\"extravote-star\"><a href=\"javascript:void(null)\" onclick=\"javascript:JVXVote(".$id.",".$j.",".$rating_sum.",".$rating_count.",'".$xid."',".$show_counter.",".$show_rating.",".$rating_mode.",".$decimal.");\" title=\"".TEXT::_('PLG_CONTENT_EXTRAVOTE_RATING_'.($j * 10).'_OUT_OF_5')."\" class=\"ev-".($j * 10)."-stars\">1</a></span>";
         endfor;
         $html = "<".$container." class=\"".$class."\">";
         if ($this->params->get('description', "")) {
@@ -186,7 +187,6 @@ class Extravote extends CMSPlugin implements SubscriberInterface
             if ($rating_mode == 0) {
                 $rating = round($rating * 20) . '%';
             } else {
-               $decimal = $this->params->get('rating_decimal',2);
                 $rating = number_format($rating, $decimal);
             }
             $html .= TEXT::sprintf('PLG_CONTENT_EXTRAVOTE_LABEL_RATING', $rating);

@@ -6,7 +6,7 @@
 # Copyright (C) 2025 www.conseilgouz.com. All Rights Reserved.
 # @license - https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 -------------------------------------------------------------------------*/
-function JVXVote(id,i,total,total_count,xid,show_counter,show_rating,rating_mode){
+function JVXVote(id,i,total,total_count,xid,show_counter,show_rating,rating_mode, rating_decimal){
 	var currentURL = window.location;
 	var live_site = currentURL.protocol+'//'+currentURL.host+ev_basefolder;
 	
@@ -28,7 +28,7 @@ function JVXVote(id,i,total,total_count,xid,show_counter,show_rating,rating_mode
 					if(response=='thanks'){
 						text = '';
 						var newtotal  = total_count+1;
-						var newrating = ((total + i)/(newtotal)).toFixed(2);
+						var newrating = ((total + i)/(newtotal)).toFixed(rating_decimal);
 						if(show_rating!=0){
 							if(rating_mode==1) {
 								text+=extravote_text[7].replace('%s', newrating );

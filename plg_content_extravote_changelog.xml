@@ -3,6 +3,18 @@
 		<element>extravote</element>
 		<type>plugin</type>
 		<group>content</group>
+		<version>4.5.3</version>
+        <note>
+            <item>Update : 11/10/2025</item>
+        </note>
+		<fix>
+			<item>AJAX : average : use decimal size after vote</item>
+		</fix>
+    </changelog>
+	<changelog>
+		<element>extravote</element>
+		<type>plugin</type>
+		<group>content</group>
 		<version>4.5.2</version>
         <note>
             <item>Update : 11/10/2025</item>
