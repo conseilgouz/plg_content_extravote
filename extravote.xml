@@ -2,12 +2,12 @@
 <extension 	version="5.0"	type="plugin" group="content" method="upgrade">
 	<name>PLG_CONTENT_EXTRAVOTE</name>
 	<author>ConseilGouz</author>
-	<creationDate>2025-09-21</creationDate>
+	<creationDate>2025-10-11</creationDate>
 	<copyright>Copyright (C) 2025 Conseilgouz. All rights reserved.</copyright>
 	<license>GNU General Public License version 3 or later; see LICENSE.txt</license>
 	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
 	<authorUrl>https://www.conseilgouz.com</authorUrl>
-	<version>4.5.1</version>
+	<version>4.5.2</version>
 	<description>PLG_CONTENT_EXTRAVOTE_XML_DESCRIPTION</description>
 	<namespace path="src">ConseilGouz\Plugin\Content\Extravote</namespace>
 	<scriptfile>scriptfile.php</scriptfile> 
@@ -116,7 +116,7 @@
 				</field>
 				
 				<field name="show_rating" type="list"
-					default="1" class="half"
+					default="1" class="half left"
 					label="PLG_CONTENT_EXTRAVOTE_FIELD_SHOW_AVERAGE_LABEL"
 					description="PLG_CONTENT_EXTRAVOTE_FIELD_SHOW_AVERAGE_DESC">
 					<option value="0">JHIDE</option>
@@ -124,9 +124,18 @@
 					<option value="2">PLG_CONTENT_EXTRAVOTE_OPTION_SHOW_AVERAGE_MAIN</option>
 					<option value="3">PLG_CONTENT_EXTRAVOTE_OPTION_SHOW_AVERAGE_EXTRA</option>
 				</field>
+				<field name="rating_decimal"  type="radio" showon="show_rating!:0"
+					class="btn-group half right"
+					default="2"
+					label="PLG_CONTENT_EXTRAVOTE_FIELD_RATING_DECIMAL_LABEL"
+					description="PLG_CONTENT_EXTRAVOTE_FIELD_RATING_DECIMAL_DESC">
+					<option value="0">0</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+				</field>
 				
 				<field name="rating_mode" type="radio"
-					class="btn-group"
+					class="btn-group clear"
 					default="1"
 					label="PLG_CONTENT_EXTRAVOTE_FIELD_AVERAGE_MODE_LABEL"
 					description="PLG_CONTENT_EXTRAVOTE_FIELD_AVERAGE_MODE_DESC">

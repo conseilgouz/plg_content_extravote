@@ -30,17 +30,26 @@ document.addEventListener('DOMContentLoaded', function() {
         element.parentNode.parentNode.parentNode.style.float = 'left';
         element.parentNode.parentNode.style.float = 'left';
     });
+    sels = sel.querySelectorAll('select.left');
+    sels.forEach(function (element) {
+        element.parentNode.parentNode.style.float = "left"
+        element.parentNode.style.float = "left"
+    })
     sels = sel.querySelectorAll('input.right');
     sels.forEach(function (element) {
         element.parentNode.parentNode.style.float = 'right';
     });
-
     sels = sel.querySelectorAll('div.right');
     sels.forEach(function (element) {
         element.parentNode.parentNode.parentNode.style.float = 'right';
         element.parentNode.parentNode.style.float = 'right';
     });
-    
+    sels = sel.querySelectorAll('select.right');
+    sels.forEach(function (element) {
+        element.parentNode.parentNode.style.float = "right"
+        element.parentNode.style.float = "right"
+    })
+
     sels = sel.querySelectorAll('div.half.radio');
     sels.forEach(function (element) {
         element.parentNode.parentNode.parentNode.style.width = '50%';
@@ -60,6 +69,8 @@ document.addEventListener('DOMContentLoaded', function() {
     sels = sel.querySelectorAll('select.half');
     sels.forEach(function (element) {
         element.style.width = "50%"
+        element.parentNode.parentNode.style.width = "50%"
+        element.parentNode.style.width = "50%"
     })
     // Sync Rating and ExtraVote tables
     const sync = document.querySelector('#jform_params_sync');

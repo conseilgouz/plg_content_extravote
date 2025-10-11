@@ -71,7 +71,7 @@ class plgContentExtraVoteInstallerScript
         }
         // delete obsolete version.php file
         $this->delete([
-            JPATH_SITE . '/plugins/content/extravote/src/Field/VersionField.php',
+            JPATH_SITE . '/plugins/content/extravote/src/Field',
         ]);
     }
     private function postinstall_cleanup()

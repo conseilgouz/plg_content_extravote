@@ -186,7 +186,8 @@ class Extravote extends CMSPlugin implements SubscriberInterface
             if ($rating_mode == 0) {
                 $rating = round($rating * 20) . '%';
             } else {
-                $rating = number_format($rating, 2);
+               $decimal = $this->params->get('rating_decimal',2);
+                $rating = number_format($rating, $decimal);
             }
             $html .= TEXT::sprintf('PLG_CONTENT_EXTRAVOTE_LABEL_RATING', $rating);
         }
