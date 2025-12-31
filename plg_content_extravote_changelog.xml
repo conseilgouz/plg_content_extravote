@@ -3,6 +3,21 @@
 		<element>extravote</element>
 		<type>plugin</type>
 		<group>content</group>
+		<version>4.5.4</version>
+        <note>
+            <item>Update : 31/12/2025</item>
+        </note>
+        <fix>
+            <item>from https://github.com/conseilgouz/pkg_extravote_j4/pull/1, "Argument #1 ($matches) must be passed by reference, value given" and "stripos should be !== false"</item>
+        </fix>
+        <change>
+            <item>Use ConseilGouz Library 1.1.0</item>
+        </change>
+    </changelog>
+	<changelog>
+		<element>extravote</element>
+		<type>plugin</type>
+		<group>content</group>
 		<version>4.5.3</version>
         <note>
             <item>Update : 11/10/2025</item>
