@@ -1,5 +1,5 @@
 # pkg_extravote
-ExtraVote for Joomla! 4.x/5.x
+ExtraVote for Joomla! 4.x/5.x/6.x
 
 (From Joomlahill ExtraVote)
 
