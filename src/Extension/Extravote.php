@@ -4,7 +4,7 @@
 # ------------------------------------------------------------------------
 # author    Conseilgouz
 # from joomlahill Plugin
-# Copyright (C) 2025 www.conseilgouz.com. All Rights Reserved.
+# Copyright (C) 2026 www.conseilgouz.com. All Rights Reserved.
 # @license - https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 -------------------------------------------------------------------------*/
 
@@ -17,6 +17,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Session\Session;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Database\DatabaseAwareTrait;
 use Joomla\Event\SubscriberInterface;
@@ -110,7 +111,7 @@ class Extravote extends CMSPlugin implements SubscriberInterface
         $rating_mode  = $this->params->get('rating_mode', 1);
         $show_unrated = $this->params->get('show_unrated', 1);
         $initial_hide = $this->params->get('initial_hide', 0);
-        $decimal      = $this->params->get('rating_decimal',2);
+        $decimal      = $this->params->get('rating_decimal', 2);
         $currip = $_SERVER['REMOTE_ADDR'];
         $add_snippets = 0;
         if (PluginHelper::isEnabled('system', 'schemaorg')) {
@@ -434,6 +435,7 @@ class Extravote extends CMSPlugin implements SubscriberInterface
     }
     public function goAjax($event)
     {
+        Session::checkToken() or die(Text::_('JINVALID_TOKEN'));
         $input	= Factory::getApplication()->getInput();
         $user = Factory::getApplication()->getIdentity();
         $action = $input->getString('action');
